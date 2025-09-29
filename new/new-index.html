@@ -256,6 +256,25 @@
             display: flex;
             gap: 32px;
             justify-content: center;
+            position: relative;
+        }
+
+        .listing-links-container .red-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 240, 219, 0.35);
+            /* semi-transparent red */
+            opacity: 0;
+            transition: opacity 0.2s;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .listing-links-container:hover .red-overlay {
+            opacity: 1;
         }
 
         .listing-square {
@@ -342,6 +361,7 @@
     <!-- Squares Section -->
     <section class="listing-links-section">
         <div class="listing-links-container">
+            <span class="red-overlay"></span>
 
             <!-- Airbnb Embed -->
             <div class="airbnb-embed-frame"
@@ -369,7 +389,10 @@
 
                 </a>
             </div>
-            <!-- Vrbo Embed (Custom Styled to Match Airbnb) -->
+        </div>
+        <!-- Vrbo Embed (Custom Styled to Match Airbnb) -->
+        <div class="listing-links-container">
+            <span class="red-overlay"></span>
             <div class="vrbo-embed-frame"
                 style="width: 450px; height: 450px; margin: 32px auto; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); background: #fff; display: flex; flex-direction: column; font-family: sans-serif;">
                 <a href="https://www.vrbo.com/1958483" target="_blank" rel="nofollow"
@@ -396,7 +419,7 @@
                 </a>
             </div>
 
-        </div>
+
     </section>
 
 
@@ -444,7 +467,7 @@
                             <p>This was my second stay at Jubilee Ranch,
                                 I loved it just as much as my first visit! Such a peaceful, relaxing place with a
                                 wonderful host. Gail is kind, easy to communicate with, and always has great local
-                                recommendations! A trip I always look forward to, can’t wait to go back
+                                recommendations! A trip I always look forward to, cant wait to go back
                             </p>
                         </div>
                         <h3 class="testimonial-title">
