@@ -1,18 +1,278 @@
 <html>
 
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+    <!-- Fav Icon -->
+    <link rel="icon" href="img/logo.jpg" type="image/x-icon">
+    <!-- Google Fonts -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
         integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
-    <title>BNB</title>
+
+    <title>Jubilee Ranch Guest House</title>
     <style>
+        /* Mobile Menu Styles */
+        .mobile-menu-icon {
+            display: none;
+            cursor: pointer;
+            font-size: 2em;
+            color: #fff;
+            margin-left: auto;
+            z-index: 1100;
+        }
+
+        .navbar .center {
+            transition: max-height 0.3s;
+        }
+
+        @media (max-width: 900px) {
+            .navbar {
+                flex-direction: row;
+                padding: 10px 8px;
+            }
+
+            .navbar .logo img {
+                height: 60px;
+            }
+
+            .navbar .center {
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100vw;
+                background: rgba(0, 0, 0, 0.97);
+                max-height: 0;
+                overflow: hidden;
+                flex-direction: column;
+                align-items: flex-start;
+                z-index: 1001;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            }
+
+            .navbar .center.open {
+                max-height: 400px;
+                padding: 16px 0;
+            }
+
+            .navbar ul {
+                flex-direction: column;
+                gap: 0;
+                width: 100%;
+            }
+
+            .navbar ul li {
+                width: 100%;
+                text-align: left;
+                margin: 0;
+                padding: 12px 24px;
+            }
+
+            .navbar ul li a {
+                font-size: 1.1em;
+            }
+
+            .mobile-menu-icon {
+                display: block;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero-content h1 {
+                font-size: 1.3em;
+            }
+
+            .hero-content p {
+                font-size: 1em;
+            }
+
+            .gallery-container {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(4, 1fr);
+            }
+
+            .gallery-container img {
+                height: 120px;
+            }
+
+            .testimonial-section {
+                padding: 30px 5px;
+            }
+
+            .testimonial-card {
+                .testimonial-card {
+                    flex: 0 0 33.333%;
+                    /* 3 cards per view */
+                    max-width: 33.333%;
+                    box-sizing: border-box;
+                    padding: 20px;
+                }
+
+            }
+
+            footer>div {
+                flex-direction: column !important;
+                gap: 16px !important;
+                align-items: flex-start !important;
+            }
+
+            footer nav ul {
+                flex-direction: column !important;
+                gap: 0 !important;
+            }
+
+            footer nav ul li {
+                padding: 8px 0 !important;
+            }
+        }
+
+        /* Make all images responsive */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Responsive embeds */
+        iframe {
+            max-width: 100vw;
+        }
+
+        /* Responsive sections */
+        .listing-links-section,
+        .gallery-section,
+        .placeholder-section,
+        .testimonial-section {
+            padding-left: 5vw;
+            padding-right: 5vw;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 600px) {
+
+            .listing-links-section,
+            .gallery-section,
+            .placeholder-section,
+            .testimonial-section {
+                padding-left: 2vw;
+                padding-right: 2vw;
+            }
+        }
+
         body {
             margin: 0;
             font-family: Arial, sans-serif;
             /* margin-top: 30px !important; */
             background-color: #FFF0DB !important;
+        }
+
+        .testimonial-section {
+            text-align: center;
+            padding: 60px 20px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .testimonial-section h4 {
+            color: #22c55e;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .testimonial-section h2 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 40px;
+            color: #0f172a;
+        }
+
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+            max-width: 100%;
+        }
+
+        .testimonial-wrapper {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .testimonial-card {
+            flex: 0 0 100%;
+            max-width: 30%;
+            padding: 20px;
+            background: #ffffff;
+            margin: 0 10px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .testimonial-card p {
+            font-size: 15px;
+            color: #374151;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .stars {
+            color: #fbbf24;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .client-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .client-info img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .client-info h3 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: bold;
+            color: #111827;
+        }
+
+        .client-info span {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        /* Slider buttons */
+        .slider-buttons {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .slider-buttons button {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: none;
+            background: #f3f4f6;
+            color: #111827;
+            font-size: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .slider-buttons button:hover {
+            background: #22c55e;
+            color: #fff;
         }
 
         h3,
@@ -26,79 +286,6 @@
             outline: none !important;
         }
 
-        .testimonial {
-            text-align: center;
-            color: #FFF0DB;
-            margin: 80px 30px;
-            padding: 30px 40px;
-            border-radius: 30px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .testimonial:before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #424242;
-            border-radius: 30px;
-            z-index: -1;
-        }
-
-        .testimonial:after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #FB8C00;
-            border-radius: 30px;
-            transform: rotate(-7deg);
-            z-index: -2;
-        }
-
-        .testimonial .pic {
-            border: 5px solid #F2EFE8;
-            display: inline-block;
-            margin-bottom: 10px;
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-        }
-
-        .testimonial .pic img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-        }
-
-        .testimonial .testimonial-content {
-            font-size: 15px;
-            letter-spacing: 1px;
-            line-height: 30px;
-            margin-bottom: 20px;
-        }
-
-        .testimonial .testimonial-title a {
-            display: inline-block;
-            color: #FB8C00;
-            font-size: 20px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .testimonial .testimonial-title small {
-            color: #F2EFE8;
-            font-size: 15px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: capitalize;
-        }
 
         .owl-theme .owl-controls {
             margin-top: 0px;
@@ -163,7 +350,7 @@
         }
 
         .navbar .logo img {
-            height: 40px;
+            height: 90px;
             width: auto;
             display: block;
         }
@@ -251,11 +438,12 @@
         }
 
         .listing-links-container {
-            max-width: 1100px;
+            max-width: 650px;
             width: 100%;
             display: flex;
-            gap: 32px;
+            gap: 16px;
             justify-content: center;
+            align-items: center;
             position: relative;
         }
 
@@ -328,6 +516,67 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
             background: #FFF0DB;
         }
+
+        @media (min-width: 900px) {
+            .testimonial-card {
+                flex: 0 0 33.3333%;
+                max-width: 33.3333%;
+            }
+        }
+
+        @media (max-width: 899px) {
+            .testimonial-card {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+            .gallery-container {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .gallery-container img {
+                height: auto;
+                max-height: 220px;
+                border-radius: 10px;
+                width: 100%;
+            }
+
+            .listing-links-container {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                align-items: stretch;
+            }
+            .listing-square,
+            .airbnb-embed-frame,
+            .vrbo-embed-frame {
+                max-width: 100%;
+                width: 100%;
+                margin: 0 auto 16px auto !important;
+                height: auto !important;
+            }
+            .listing-links-section {
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                padding: 16px 0 !important;
+            }
+            .listing-links-container {
+                flex-direction: column !important;
+                gap: 16px !important;
+                width: 100% !important;
+                align-items: stretch !important;
+                max-width: 100% !important;
+            }
+            .airbnb-embed-frame,
+            .vrbo-embed-frame {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 0 16px 0 !important;
+                height: auto !important;
+            }
+        }
     </style>
 </head>
 
@@ -338,17 +587,45 @@
                 <img src="img/logo.jpg" alt="BNB Logo">
             </a>
         </div>
-        <div class="center">
+        <div class="mobile-menu-icon" id="mobileMenuIcon">
+            <span class="fa fa-bars"></span>
+        </div>
+        <div class="center" id="navbarCenter">
             <ul>
-                <li><a href="index-new.html">Home</a></li>
-                <li><a href="#testimonial-slider">Testimonials</a></li>
-                <li><a href="#gallery-section">Gallery</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Book Property</a></li>
+                <li>
+                    <h3><a href="#testimonial-section">Testimonials |</a></h3>
+                </li>
+                <li>
+                    <h3><a href="#gallery-section">Gallery |</a></h3>
+                </li>
+                <li>
+                    <h3><a href="#">Blog |</a></h3>
+                </li>
+                <li>
+                    <h3><a href="#">Book Property</a></h3>
+                </li>
             </ul>
         </div>
     </nav>
-    <section class="hero" style="background: url('img/hero.jpg') center center/cover no-repeat;">
+    <section class="hero" style="background: url('img/hero.jpg') center center/cover no-repeat;min-height:300px;">
+        <script>
+            // Mobile menu toggle
+            document.addEventListener('DOMContentLoaded', function () {
+                var menuIcon = document.getElementById('mobileMenuIcon');
+                var navbarCenter = document.getElementById('navbarCenter');
+                menuIcon.addEventListener('click', function () {
+                    navbarCenter.classList.toggle('open');
+                });
+                // Close menu on link click (mobile)
+                Array.from(navbarCenter.querySelectorAll('a')).forEach(function (link) {
+                    link.addEventListener('click', function () {
+                        if (window.innerWidth <= 900) {
+                            navbarCenter.classList.remove('open');
+                        }
+                    });
+                });
+            });
+        </script>
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1><b></b>Find your sanctuary in the Texas Hill Country</b></h1>
@@ -356,7 +633,7 @@
         </div>
     </section>
 
-
+    <h2 style="position: relative; text-align: center;">Choose from AirBNB or VERBO below to book this Home</h2>
 
     <!-- Squares Section -->
     <section class="listing-links-section">
@@ -376,13 +653,17 @@
                     </div>
 
                     <!-- Text Section -->
-                    <div style="padding: 12px; font-size: 14px; line-height: 1.4;">
-                        <div style="color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                            Home in Comfort
-                        </div>
-                        <div
-                            style="font-weight: 500; color: #111; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                            View on AirBNB | 2 bedrooms | 2 beds | 2 bathrooms
+                    <div
+                        style="padding: 12px; font-size: 14px; line-height: 1.4; display: flex; align-items: center; gap: 8px;">
+                        <img src="img/airbnblogo.webp" alt="Logo" style="height:24px;width:auto;vertical-align:middle;">
+                        <div>
+                            <div style="color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                Home in Comfort
+                            </div>
+                            <div
+                                style="font-weight: 500; color: #111; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                View on AirBNB | 2 bedrooms | 2 beds | 2 bathrooms
+                            </div>
                         </div>
                     </div>
 
@@ -405,13 +686,17 @@
                     </div>
 
                     <!-- Text Section -->
-                    <div style="padding: 12px; font-size: 14px; line-height: 1.4;">
-                        <div style="color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                            Guest House in the heart of Texas Wine Country
-                        </div>
-                        <div
-                            style="font-weight: 500; color: #111; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                            View on Vrbo | 2 bedrooms | 2 beds | 2 bathrooms
+                    <div
+                        style="padding: 12px; font-size: 14px; line-height: 1.4; display: flex; align-items: center; gap: 8px;">
+                        <img src="img/verbologo.svg" alt="Logo" style="height:24px;width:auto;vertical-align:middle;">
+                        <div>
+                            <div style="color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                Guest House in the heart of Texas Wine Country
+                            </div>
+                            <div
+                                style="font-weight: 500; color: #111; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                View on Vrbo | 2 bedrooms | 2 beds | 2 bathrooms
+                            </div>
                         </div>
                     </div>
 
@@ -454,96 +739,225 @@
 
     <!-- Testimonials Section -->
 
+    <section class="testimonial-section" id="testimonial-section">
+        <h4>Testimonials</h4>
+        <h2>What our clients say<br>about Bielski Bin Cleaning</h2>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-offset-2 col-md-8">
-                <div id="testimonial-slider" class="owl-carousel">
-                    <div class="testimonial">
-                        <div class="pic">
-                            <img src="img/test/2.webp">
+        <div class="slider-container">
+            <div class="testimonial-wrapper">
+                <!-- Slide 1 -->
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>Excellent service! The bins look brand new after every visit. I love how eco-friendly and safe
+                        their process is. Highly recommend them to anyone who wants cleaner living spaces.</p>
+                    <div class="client-info"> <img src="img/test/3.jpg" alt="Savannah">
+                        <div>
+                            <h3>Savannah N.</h3> <span>Mom of 3, Grawn</span>
                         </div>
-                        <div class="testimonial-content">
-                            <p>This was my second stay at Jubilee Ranch,
-                                I loved it just as much as my first visit! Such a peaceful, relaxing place with a
-                                wonderful host. Gail is kind, easy to communicate with, and always has great local
-                                recommendations! A trip I always look forward to, cant wait to go back
-                            </p>
-                        </div>
-                        <h3 class="testimonial-title">
-                            <a href="https://www.airbnb.co.in/rooms/43722223">Alex | Seymour, Texas</a>
-                            <small>- Jubilee Ranch</small>
-                        </h3>
                     </div>
-
-                    <div class="testimonial">
-                        <div class="pic">
-                            <img src="img/test/3.jpg">
+                </div> <!-- Slide 2 -->
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>Great customer service and very reliable. My bins used to be a breeding ground for flies—now
+                        they're clean, sanitized, and smell fresh. Worth every penny!</p>
+                    <div class="client-info"> <img src="img/test/2.webp" alt="Ralph">
+                        <div>
+                            <h3>Ralph E.</h3> <span>Retired Veteran, Interlochen</span>
                         </div>
-                        <div class="testimonial-content">
-                            <p>An outstanding stay! We came out for a girls' trip to Fredricksburg and wanted to stay
-                                just a bit out of the main area for some peace and quiet. We got that and so much more!
-                                Between the comfortable beds, the steam shower, the farm fresh eggs, the hot tub, and
-                                the zebras (yes, zebras), it's hard to pick the most magical part of our stay.
-                                Seriously, the pictures do not do this place justice.
-                            </p>
-                        </div>
-                        <h3 class="testimonial-title">
-                            <a href="https://www.airbnb.co.in/rooms/43722223">Sarah | Denton, Texas</a>
-                            <small>- Jubilee Ranch</small>
-                        </h3>
                     </div>
-
-                    <div class="testimonial">
-                        <div class="pic">
-                            <img src="img/test/1.webp">
+                </div> <!-- Slide 3 -->
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>We were tired of the horrible smell from our trash bins every summer. Bielski’s service is quick,
+                        professional, and totally effective. Now our bins are spotless and odor-free!</p>
+                    <div class="client-info"> <img src="img/test/1.webp" alt="Robert">
+                        <div>
+                            <h3>Robert A.</h3> <span>Homeowner, Traverse City</span>
                         </div>
-                        <div class="testimonial-content">
-                            <p>Gail's home is a 5-star luxury hotel masquerading as a short-term rental—even better. The
-                                grounds are gorgeous, the home has every amenity, and it is thoughtfully equipped, from
-                                the top-of-the-line appliances to the steam shower. It is so peaceful on her ranch, and
-                                her beds are so comfortable that I slept later than in years. My son was thrilled to
-                                greet the chickens and ducks in the morning and say hello to the zebras in the evening.
-                                Gail is warm and welcoming. We will return many times.
-                            </p>
+                    </div>
+                </div> <!-- Slide 4 -->
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>Absolutely amazing! The attention to detail is outstanding. My bins not only look clean but also
+                        smell fresh every time.</p>
+                    <div class="client-info"> <img src="img/test/3.jpg" alt="Jessica">
+                        <div>
+                            <h3>Jessica L.</h3> <span>Teacher, Kingsley</span>
                         </div>
-                        <h3 class="testimonial-title">
-                            <a href="https://www.airbnb.co.in/rooms/43722223">Julia | 6 years on Airbnb</a>
-                            <small>- Jubilee Ranch</small>
-                        </h3>
+                    </div>
+                </div> <!-- Slide 5 -->
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>Bielski Bin Cleaning is a game-changer. Professional, fast, and reliable. I’ll never go back to
+                        dirty, smelly bins again!</p>
+                    <div class="client-info"> <img src="img/test/2.webp" alt="Michael">
+                        <div>
+                            <h3>Michael B.</h3> <span>Business Owner, Cadillac</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-    <script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
+                <!-- Slide 1 -->
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>Excellent service! The bins look brand new after every visit.</p>
+                    <div class="client-info">
+                        <img src="img/test/1.webp" alt="Savannah">
+                        <div>
+                            <h3>Savannah N.</h3>
+                            <span>Mom of 3, Grawn</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>Great customer service and very reliable.</p>
+                    <div class="client-info">
+                        <img src="img/test/2.webp" alt="Ralph">
+                        <div>
+                            <h3>Ralph E.</h3>
+                            <span>Retired Veteran, Interlochen</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slide 1 -->
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>Excellent service! The bins look brand new after every visit. I love how eco-friendly and safe
+                        their process is. Highly recommend them to anyone who wants cleaner living spaces.</p>
+                    <div class="client-info"> <img src="img/test/3.jpg" alt="Savannah">
+                        <div>
+                            <h3>Savannah N.</h3> <span>Mom of 3, Grawn</span>
+                        </div>
+                    </div>
+                </div> <!-- Slide 2 -->
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>Great customer service and very reliable. My bins used to be a breeding ground for flies—now
+                        they're clean, sanitized, and smell fresh. Worth every penny!</p>
+                    <div class="client-info"> <img src="img/test/1.webp" alt="Ralph">
+                        <div>
+                            <h3>Ralph E.</h3> <span>Retired Veteran, Interlochen</span>
+                        </div>
+                    </div>
+                </div> <!-- Slide 3 -->
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>We were tired of the horrible smell from our trash bins every summer. Bielski’s service is quick,
+                        professional, and totally effective. Now our bins are spotless and odor-free!</p>
+                    <div class="client-info"> <img src="img/test/3.jpg" alt="Robert">
+                        <div>
+                            <h3>Robert A.</h3> <span>Homeowner, Traverse City</span>
+                        </div>
+                    </div>
+                </div> <!-- Slide 4 -->
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>Absolutely amazing! The attention to detail is outstanding. My bins not only look clean but also
+                        smell fresh every time.</p>
+                    <div class="client-info"> <img src="img/test/2.webp" alt="Jessica">
+                        <div>
+                            <h3>Jessica L.</h3> <span>Teacher, Kingsley</span>
+                        </div>
+                    </div>
+                </div> <!-- Slide 5 -->
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>Bielski Bin Cleaning is a game-changer. Professional, fast, and reliable. I’ll never go back to
+                        dirty, smelly bins again!</p>
+                    <div class="client-info"> <img src="img/test/1.webp" alt="Michael">
+                        <div>
+                            <h3>Michael B.</h3> <span>Business Owner, Cadillac</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 1 -->
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>Excellent service! The bins look brand new after every visit.</p>
+                    <div class="client-info">
+                        <img src="img/test/1.webp" alt="Savannah">
+                        <div>
+                            <h3>Savannah N.</h3>
+                            <span>Mom of 3, Grawn</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>Great customer service and very reliable.</p>
+                    <div class="client-info">
+                        <img src="img/test/2.webp" alt="Ralph">
+                        <div>
+                            <h3>Ralph E.</h3>
+                            <span>Retired Veteran, Interlochen</span>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+
+        </div>
+        </div>
+
+        <div class="slider-buttons">
+            <button id="prev">&#8592;</button>
+            <button id="next">&#8594;</button>
+        </div>
+    </section>
+
     <script>
-        $(document).ready(function () {
-            $('#testimonial-slider').owlCarousel({
-                items: 1,
-                itemsDesktop: [1000, 1],
-                itemsDesktopSmall: [979, 1],
-                itemsTablet: [768, 1],
-                pagination: false,
-                navigation: true,
-                navigationText: ["", ""],
-                slideSpeed: 2000,
-                autoPlay: true
-            });
+        const wrapper = document.querySelector('.testimonial-wrapper');
+        const slides = document.querySelectorAll('.testimonial-card');
+        const prevBtn = document.getElementById('prev');
+        const nextBtn = document.getElementById('next');
+        let index = 0;
+
+        function getVisibleCount() {
+            return window.innerWidth >= 900 ? 3 : 1;
+        }
+
+        function showSlide(i) {
+            const visible = getVisibleCount();
+            const maxIndex = slides.length - visible;
+            // Loop logic: wrap around both directions
+            if (i < 0) index = maxIndex;
+            else if (i > maxIndex) index = 0;
+            else index = i;
+            wrapper.style.transform = `translateX(-${index * (100/visible)}%)`;
+        }
+
+        prevBtn.addEventListener('click', () => showSlide(index - 1));
+        nextBtn.addEventListener('click', () => showSlide(index + 1));
+
+        window.addEventListener('resize', () => {
+            const visible = getVisibleCount();
+            const maxIndex = slides.length - visible;
+            if (index > maxIndex) index = 0;
+            showSlide(index);
         });
+
+        // Auto slide every 5s
+        setInterval(() => {
+            showSlide(index + 1);
+        }, 5000);
+
+        // Initial render
+        showSlide(0);
     </script>
 
-
     <!-- Google Map Section -->
-    <br>
-    <section class="map-section" style="width:100%;background:#FFF0DB;padding:0;display:flex;justify-content:center;">
+    <section class="map-section" style="width:100vw;background:#FFF0DB;padding:0;margin:0;">
         <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d27650.638459388396!2d-98.92288310820459!3d29.9699503474831!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x865b8e829e3bc34f%3A0x1eb1dc66e63bffc!2sComfort%2C%20TX%2078013!5e0!3m2!1sen!2sus!4v1759165800250!5m2!1sen!2sus"
-            width="100%" height="450" style="border:0;max-width:1100px;" allowfullscreen="" loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"></iframe>
+            width="100%" height="450" style="border:0;display:block;width:100vw;margin:0;" allowfullscreen=""
+            loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </section>
 
     <!-- Footer Section -->
@@ -554,8 +968,8 @@
                 <img src="img/logo.jpg" alt="BNB Logo" style="height:40px;width:auto;">
                 <nav>
                     <ul style="list-style:none;display:flex;gap:24px;margin:0;padding:0;">
-                        <li><a href="index-new.html" style="color:#fff;text-decoration:none;">Home</a></li>
-                        <li><a href="#testimonial-slider" style="color:#fff;text-decoration:none;">Testimonials</a></li>
+                        <li><a href="#testimonial-section" style="color:#fff;text-decoration:none;">Testimonials</a>
+                        </li>
                         <li><a href="#gallery-section" style="color:#fff;text-decoration:none;">Gallery</a></li>
                         <li><a href="#" style="color:#fff;text-decoration:none;">Blog</a></li>
                         <li><a href="#" style="color:#fff;text-decoration:none;">Book Property</a></li>
@@ -564,17 +978,4 @@
             </div>
             <div style="display:flex;align-items:center;gap:24px;">
                 <a href="https://www.youtube.com/@JubileeRanchand" target="_blank"
-                    style="color:#fff;text-decoration:none;font-size:1.2em;">YouTube</a>
-                <a href="https://www.instagram.com/jubileeranchguesthouse/?hl=en" target="_blank"
-                    style="color:#fff;text-decoration:none;font-size:1.2em;">Instagram</a>
-            </div>
-        </div>
-        <div style="width:100%;background:#000;color:#fff;text-align:center;padding:16px 0;margin-top:32px;">
-            &copy; 2025 <a href="https://jubileeranchguesthouse.com"
-                style="color:#ffd700;text-decoration:underline;">Jubilee Ranch Guest House</a>. All rights reserved. |
-            Website developed & hosted by<a href="https://schrader.co" target="blank"> Schrader Web Solutions</a>
-        </div>
-    </footer>
-</body>
-
-</html>
+                    style="color:#fff;text-decoration:none;font-size:1.2em;display:flex;align-items:center;gap:6px;">
