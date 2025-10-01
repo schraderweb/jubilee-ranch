@@ -560,6 +560,15 @@
                 display: none !important;
             }
         }
+            /* Hide navbar logo in desktop, show in mobile */
+        .navbar .logo {
+            display: none;
+        }
+        @media (max-width: 900px) {
+            .navbar .logo {
+                display: block;
+            }
+        }
     </style>
 </head>
 
