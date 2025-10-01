@@ -1,3 +1,4 @@
+        
 <!doctype html>
 <html>
 
@@ -223,6 +224,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.3);
+            text-align: center;
         }
 
         .hero-content {
@@ -552,8 +554,12 @@
                 gap: 6px;
             }
         }
-
-        
+        /* Hide .temp-logo in mobile view, show on desktop */
+        @media (max-width: 900px) {
+            .temp-logo {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 
@@ -572,16 +578,16 @@
         <div class="center" id="navbarCenter">
             <ul>
                 <li>
-                    <h3><a href="#testimonial-section">Testimonials</a></h3>
+                    <h3><a href="#testimonial-section"> Testimonials </a></h3>
                 </li>
                 <li>
-                    <h3><a href="#gallery-section">Gallery</a></h3>
+                    <h3><a href="#gallery-section"> Gallery </a></h3>
                 </li>
                 <li>
-                    <h3><a href="#">Blog</a></h3>
+                    <h3><a href="#"> Blog </a></h3>
                 </li>
                 <li>
-                    <h3><a href="#">Book Property</a></h3>
+                    <h3><a href="#"> Book Property </a></h3>
                 </li>
             </ul>
 
@@ -591,10 +597,18 @@
     <section class="hero">
         <div class="hero-overlay"></div>
         <div class="hero-content">
+            <div class="temp-logo">
+            <a href="new-index.html">
+                <center>
+                    <img src="img/logo.jpg" sizes="300px" alt="BNB Logo">
+                </center>
+            </a>
+            </div>
             <h1>Find your sanctuary in the Texas Hill Country</h1>
             <p>private, peaceful, unforgettable.</p>
         </div>
     </section>
+
 
     <h2 style="position: relative; text-align: center; margin-top: 24px;">Choose from AirBNB or VRBO below to book this
         Home</h2>
@@ -876,11 +890,11 @@
     <footer style="width:100%;background:#2a2929;color:#fff;padding:10px 0 0 0;">
         <div class="footer-main">
             <div class="footer-left">
-                <img src="img/logo.jpg" alt="BNB Logo" style="height:300px;width:auto;">
+                <img src="img/logo.jpg" alt="BNB Logo" style="height:auto;width:auto;">
                 <p>Located in the heart of the Hill Country.<br>
                     Only 2 miles from the charming town of Comfort.
                 </p>
-                
+
             </div>
             <div class="footer-right">
                 <nav>
