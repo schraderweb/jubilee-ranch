@@ -1,3 +1,4 @@
+<!doctype html>
 <html>
 
 <head>
@@ -7,168 +8,369 @@
 
     <!-- Fav Icon -->
     <link rel="icon" href="img/logo.jpg" type="image/x-icon">
-    <!-- Google Fonts -->
+    <!-- Google Fonts / Libs -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
         integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
 
     <title>Jubilee Ranch Guest House</title>
-    <style>
-        /* Mobile Menu Styles */
-        .mobile-menu-icon {
-            display: none;
-            cursor: pointer;
-            font-size: 2em;
-            color: #fff;
-            margin-left: auto;
-            z-index: 1100;
-        }
 
-        .navbar .center {
-            transition: max-height 0.3s;
+    <style>
+        /* layout variables */
+        :root {
+            --nav-height: 90px;
+            /* desktop */
         }
 
         @media (max-width: 900px) {
-            .navbar {
-                flex-direction: row;
-                padding: 10px 8px;
+            :root {
+                --nav-height: 90px;
+                /* mobile */
             }
+        }
 
-            .navbar .logo img {
-                height: 60px;
+        /* Reset / base */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #FFF0DB !important;
+            /* ensure fixed navbar doesn't cover content */
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        iframe {
+            max-width: 100vw;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--nav-height);
+            background: rgba(0, 0, 0, 0.6);
+            color: #ffffff;
+            padding: 0 32px;
+            z-index: 1200;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar .logo {
+            display: block;
+            z-index: 1300;
+            /* always above the mobile overlay */
+        }
+
+        .navbar .logo img {
+            height: calc(var(--nav-height) - 16px);
+            width: auto;
+            display: block;
+        }
+
+        .mobile-menu-icon {
+            display: none;
+            cursor: pointer;
+            font-size: 1.6em;
+            color: #fff;
+            margin-left: auto;
+            z-index: 1301;
+        }
+
+        .navbar .center {
+            transition: transform 0.25s ease;
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .navbar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .navbar ul li {
+            display: flex;
+            align-items: center;
+        }
+
+        /* remove default margins from headings so vertical-align works cleanly */
+        .navbar ul li h3 {
+            margin: 0;
+            font-size: 1em;
+            font-weight: 600;
+        }
+
+        .navbar ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1em;
+            transition: color 0.2s;
+            display: inline-block;
+            padding: 6px 0;
+        }
+
+        .navbar ul li a:hover {
+            color: #ffd700;
+        }
+
+        /* Desktop separators - using border makes vertical centering reliable */
+        @media (min-width: 901px) {
+            .navbar ul li+li {
+                padding-left: 18px;
+                margin-left: 18px;
+                border-left: 1px solid rgba(255, 255, 255, 0.28);
             }
+        }
 
-            .navbar .center {
+        /* Mobile navigation - full screen overlay with logo on top-right */
+        @media (max-width: 900px) {
+            
+            .mobile-menu-icon {
+                display: block;
                 position: absolute;
-                top: 60px;
+                left: 12px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            .navbar .logo {
+                position: absolute;
+                right: 12px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            /* overlay: fixed so it covers the entire viewport and slides down */
+            .navbar .center {
+                position: fixed;
+                top: 0;
                 left: 0;
                 width: 100vw;
+                height: 100vh;
                 background: rgba(0, 0, 0, 0.97);
-                max-height: 0;
-                overflow: hidden;
+                transform: translateY(-100%);
+                overflow: auto;
                 flex-direction: column;
-                align-items: flex-start;
-                z-index: 1001;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+                align-items: stretch;
+                padding-top: calc(var(--nav-height) + 100px);
+                z-index: 1200;
             }
 
             .navbar .center.open {
-                max-height: 400px;
-                padding: 16px 0;
+                transform: translateY(0);
             }
 
             .navbar ul {
                 flex-direction: column;
-                gap: 0;
                 width: 100%;
+                gap: 0;
             }
 
             .navbar ul li {
                 width: 100%;
                 text-align: left;
                 margin: 0;
-                padding: 12px 24px;
+                padding: 18px 24px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            }
+
+            .navbar ul li::after {
+                content: none !important;
             }
 
             .navbar ul li a {
-                font-size: 1.1em;
+                font-size: 1.15em;
             }
+        }
 
-            .mobile-menu-icon {
-                display: block;
-            }
+        /* Hero */
+        .hero {
+            width: 100%;
+            height: 80vh;
+            background: url('img/hero.jpg') center center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            min-height: 300px;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-content {
+            position: relative;
+            color: #fff;
+            text-align: center;
+            z-index: 2;
+            text-shadow: 0 2px 16px rgba(0, 0, 0, 0.767),
+                0 1px 4px rgba(0, 0, 0, 0.767);
+        }
+
+        .hero-content h1 {
+            font-size: 3em;
+            margin-bottom: 0.5em;
+        }
+
+        .hero-content p {
+            font-size: 1.5em;
         }
 
         @media (max-width: 600px) {
             .hero-content h1 {
-                font-size: 1.3em;
+                font-size: 2em;
             }
 
             .hero-content p {
                 font-size: 1em;
             }
-
-            .gallery-container {
-                grid-template-columns: repeat(2, 1fr);
-                grid-template-rows: repeat(4, 1fr);
-            }
-
-            .gallery-container img {
-                height: 120px;
-            }
-
-            .testimonial-section {
-                padding: 30px 5px;
-            }
-
-            .testimonial-card {
-                .testimonial-card {
-                    flex: 0 0 33.333%;
-                    /* 3 cards per view */
-                    max-width: 33.333%;
-                    box-sizing: border-box;
-                    padding: 20px;
-                }
-
-            }
-
-            footer>div {
-                flex-direction: column !important;
-                gap: 16px !important;
-                align-items: flex-start !important;
-            }
-
-            footer nav ul {
-                flex-direction: column !important;
-                gap: 0 !important;
-            }
-
-            footer nav ul li {
-                padding: 8px 0 !important;
-            }
         }
 
-        /* Make all images responsive */
-        img {
-            max-width: 100%;
-            height: auto;
+        /* Squares / listing cards - responsive square frames so logos and images are never cropped in awkward ways */
+        .listing-links-section {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            background: #f8f8f8;
+            padding: 48px 0 32px 0;
         }
 
-        /* Responsive embeds */
-        iframe {
-            max-width: 100vw;
+        .listing-links-container {
+            max-width: 1100px;
+            width: 100%;
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            padding: 0 24px;
         }
 
-        /* Responsive sections */
-        .listing-links-section,
-        .gallery-section,
-        .placeholder-section,
-        .testimonial-section {
-            padding-left: 5vw;
-            padding-right: 5vw;
-            box-sizing: border-box;
+        .embed-frame {
+            width: 100%;
+            max-width: 450px;
+            aspect-ratio: 1 / 1;
+            /* keep perfect square */
+            margin: 16px auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            font-family: sans-serif;
+        }
+
+        .embed-frame .media {
+            flex: 1 1 auto;
+            overflow: hidden;
+        }
+
+        .embed-frame .media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .embed-frame .meta {
+            padding: 12px;
+            font-size: 14px;
+            line-height: 1.4;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-height: 64px;
+            /* keeps bottom area consistent across frames */
+        }
+
+        .embed-frame .meta img.logo {
+            height: 24px;
+            width: auto;
+            vertical-align: middle;
+            flex-shrink: 0;
         }
 
         @media (max-width: 600px) {
+            .embed-frame {
+                max-width: 90%;
+                aspect-ratio: 1 / 1;
+                margin: 12px auto;
+            }
 
-            .listing-links-section,
-            .gallery-section,
-            .placeholder-section,
-            .testimonial-section {
-                padding-left: 2vw;
-                padding-right: 2vw;
+            .embed-frame .meta {
+                min-height: 64px;
             }
         }
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            /* margin-top: 30px !important; */
-            background-color: #FFF0DB !important;
+        /* Gallery */
+        .gallery-section {
+            width: 100%;
+            background: #FFF0DB;
+            padding: 32px 0 48px 0;
+            display: flex;
+            justify-content: center;
         }
 
+        .gallery-container {
+            max-width: 1100px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .gallery-container img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+            background: #FFF0DB;
+        }
+
+        @media (max-width: 899px) {
+            .gallery-container {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .gallery-container img {
+                height: auto;
+                max-height: 220px;
+                width: 100%;
+            }
+        }
+
+        /* Testimonials (unchanged besides ensuring nothing is hidden under fixed nav) */
         .testimonial-section {
             text-align: center;
             padding: 60px 20px;
@@ -199,16 +401,33 @@
         .testimonial-wrapper {
             display: flex;
             transition: transform 0.5s ease-in-out;
+            justify-content: flex-start;
         }
 
         .testimonial-card {
-            flex: 0 0 100%;
-            max-width: 30%;
             padding: 20px;
             background: #ffffff;
             margin: 0 10px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18),
+                0 1.5px 8px rgba(0, 0, 0, 0.10);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @media (min-width: 900px) {
+            .testimonial-card {
+                flex: 0 0 33.3333%;
+                max-width: 33.3333%;
+            }
+        }
+
+        @media (max-width: 899px) {
+            .testimonial-card {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
         }
 
         .testimonial-card p {
@@ -250,331 +469,86 @@
             color: #6b7280;
         }
 
-        /* Slider buttons */
-        .slider-buttons {
-            margin-top: 30px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .slider-buttons button {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            border: none;
-            background: #f3f4f6;
-            color: #111827;
-            font-size: 20px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .slider-buttons button:hover {
-            background: #22c55e;
+        /* General footer styles */
+        footer a {
             color: #fff;
+            text-decoration: none;
         }
 
-        h3,
-        p {
-            margin: 0 !important;
-        }
-
-        a:hover,
-        a:focus {
-            text-decoration: none !important;
-            outline: none !important;
-        }
-
-
-        .owl-theme .owl-controls {
-            margin-top: 0px;
-            margin-left: 10px;
-            text-align: center;
-        }
-
-        .owl-theme .owl-controls .owl-buttons div {
-            display: inline-block;
-            opacity: 1;
-            background: #FB8C00;
-            color: #F2EFE8;
-            border-radius: 0;
-            width: 40px;
-            height: 40px;
-            line-height: 40px;
-            margin-right: 5px;
-        }
-
-        .owl-prev:before,
-        .owl-next:before {
-            content: "\f060";
-            font-family: 'FontAwesome';
-            font-size: 20px;
-        }
-
-        .owl-next:before {
-            content: "\f061";
-        }
-
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            /* semi-transparent */
-            color: #ffffff;
-            padding: 16px 32px;
-            z-index: 1000;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .navbar .center {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .navbar ul {
+        footer ul {
             list-style: none;
+            /* display: flex; */
+            gap: 8px;
             margin: 0;
             padding: 0;
-            display: flex;
-            gap: 24px;
-            justify-content: center;
-            align-items: center;
         }
 
-        .navbar .logo img {
-            height: 90px;
+        footer img {
+            height: 25px;
             width: auto;
-            display: block;
+            vertical-align: bottom;
+            padding-top: 5px;
         }
 
-        .navbar ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
+        .footer-main {
+            max-width: 1100px;
+            margin: 0px;
+            padding: 0 24px;
             display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .footer-right {
+            display: flex;
+            align-items: center;
             gap: 24px;
         }
 
-        .navbar ul li {
-            display: inline;
-        }
-
-        .navbar ul li a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 1em;
-            transition: color 0.2s;
-        }
-
-        .navbar ul li a:hover {
-            color: #ffd700;
-        }
-
-        .hero {
+        .footer-bottom {
             width: 100%;
-            height: 80vh;
-            background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80') center center/cover no-repeat;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        .hero-content {
-            position: relative;
+            background: #000;
             color: #fff;
             text-align: center;
-            z-index: 2;
-            text-shadow: 0 2px 16px rgba(0, 0, 0, 0.767), 0 1px 4px rgba(0, 0, 0, 0.767);
+            padding: 16px 0;
+            margin-top: 32px;
         }
 
-        .hero-content h1 {
-            font-size: 3em;
-            margin-bottom: 0.5em;
+        .footer-bottom a {
+            color: #ffd700;
+            text-decoration: underline;
         }
 
-        .hero-content p {
-            font-size: 1.5em;
-        }
-
-        @media (max-width: 600px) {
-            .navbar {
-                padding: 12px 16px;
-            }
-
-            .hero-content h1 {
-                font-size: 2em;
-            }
-
-            .hero-content p {
-                font-size: 1em;
-            }
-        }
-
-        /* Squares section styles */
-        .listing-links-section {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            background: #f8f8f8;
-            padding: 48px 0 32px 0;
-        }
-
-        .listing-links-container {
-            max-width: 650px;
-            width: 100%;
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-
-        .listing-links-container .red-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 240, 219, 0.35);
-            /* semi-transparent red */
-            opacity: 0;
-            transition: opacity 0.2s;
-            pointer-events: none;
-            z-index: 2;
-        }
-
-        .listing-links-container:hover .red-overlay {
-            opacity: 1;
-        }
-
-        .listing-square {
-            background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
-            flex: 1 1 0;
-            min-width: 220px;
-            max-width: 400px;
-            height: 220px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.2s;
-            text-decoration: none;
-        }
-
-        .listing-square:hover {
-            background: #f5ecd7;
-        }
-
-        .listing-square img {
-            max-width: 120px;
-            max-height: 120px;
-            object-fit: contain;
-        }
-
-        /* Gallery section styles */
-        .gallery-section {
-            width: 100%;
-            background: #FFF0DB;
-            padding: 32px 0 48px 0;
-            display: flex;
-            justify-content: center;
-        }
-
-        .gallery-container {
-            max-width: 1100px;
-            width: 100%;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(2, 1fr);
-            gap: 18px;
-        }
-
-        .gallery-container img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
-            background: #FFF0DB;
-        }
-
-        @media (min-width: 900px) {
-            .testimonial-card {
-                flex: 0 0 33.3333%;
-                max-width: 33.3333%;
-            }
-        }
-
-        @media (max-width: 899px) {
-            .testimonial-card {
-                flex: 0 0 100%;
-                max-width: 100%;
-            }
-            .gallery-container {
-                display: flex;
+        /* MOBILE FOOTER (stacked like screenshot) */
+        @media (max-width: 768px) {
+            .footer-main {
                 flex-direction: column;
+                align-items: flex-start;
                 gap: 12px;
             }
 
-            .gallery-container img {
-                height: auto;
-                max-height: 220px;
-                border-radius: 10px;
-                width: 100%;
+            .footer-left {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
             }
 
-            .listing-links-container {
-                display: flex;
+            footer ul {
                 flex-direction: column;
-                gap: 16px;
-                align-items: stretch;
+                gap: 4px;
             }
-            .listing-square,
-            .airbnb-embed-frame,
-            .vrbo-embed-frame {
-                max-width: 100%;
-                width: 100%;
-                margin: 0 auto 16px auto !important;
-                height: auto !important;
-            }
-            .listing-links-section {
-                display: flex;
+
+            .footer-right {
                 flex-direction: column;
-                align-items: stretch;
-                padding: 16px 0 !important;
-            }
-            .listing-links-container {
-                flex-direction: column !important;
-                gap: 16px !important;
-                width: 100% !important;
-                align-items: stretch !important;
-                max-width: 100% !important;
-            }
-            .airbnb-embed-frame,
-            .vrbo-embed-frame {
-                width: 100% !important;
-                max-width: 100% !important;
-                margin: 0 0 16px 0 !important;
-                height: auto !important;
+                align-items: flex-start;
+                gap: 6px;
             }
         }
     </style>
@@ -587,75 +561,58 @@
                 <img src="img/logo.jpg" alt="BNB Logo">
             </a>
         </div>
-        <div class="mobile-menu-icon" id="mobileMenuIcon">
+
+        <div class="mobile-menu-icon" id="mobileMenuIcon" aria-label="Toggle menu" role="button">
             <span class="fa fa-bars"></span>
         </div>
+
         <div class="center" id="navbarCenter">
             <ul>
                 <li>
-                    <h3><a href="#testimonial-section">Testimonials |</a></h3>
+                    <h3><a href="#testimonial-section">Testimonials</a></h3>
                 </li>
                 <li>
-                    <h3><a href="#gallery-section">Gallery |</a></h3>
+                    <h3><a href="#gallery-section">Gallery</a></h3>
                 </li>
                 <li>
-                    <h3><a href="#">Blog |</a></h3>
+                    <h3><a href="#">Blog</a></h3>
                 </li>
                 <li>
                     <h3><a href="#">Book Property</a></h3>
                 </li>
             </ul>
+
         </div>
     </nav>
-    <section class="hero" style="background: url('img/hero.jpg') center center/cover no-repeat;min-height:300px;">
-        <script>
-            // Mobile menu toggle
-            document.addEventListener('DOMContentLoaded', function () {
-                var menuIcon = document.getElementById('mobileMenuIcon');
-                var navbarCenter = document.getElementById('navbarCenter');
-                menuIcon.addEventListener('click', function () {
-                    navbarCenter.classList.toggle('open');
-                });
-                // Close menu on link click (mobile)
-                Array.from(navbarCenter.querySelectorAll('a')).forEach(function (link) {
-                    link.addEventListener('click', function () {
-                        if (window.innerWidth <= 900) {
-                            navbarCenter.classList.remove('open');
-                        }
-                    });
-                });
-            });
-        </script>
+
+    <section class="hero">
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <h1><b></b>Find your sanctuary in the Texas Hill Country</b></h1>
+            <h1>Find your sanctuary in the Texas Hill Country</h1>
             <p>private, peaceful, unforgettable.</p>
         </div>
     </section>
 
-    <h2 style="position: relative; text-align: center;">Choose from AirBNB or VRBO below to book this Home</h2>
+    <h2 style="position: relative; text-align: center; margin-top: 24px;">Choose from AirBNB or VRBO below to book this
+        Home</h2>
 
     <!-- Squares Section -->
     <section class="listing-links-section">
         <div class="listing-links-container">
-            <span class="red-overlay"></span>
 
             <!-- Airbnb Embed -->
-            <div class="airbnb-embed-frame"
-                style="width: 450px; height: 450px; margin: 32px auto; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); background: #fff; display: flex; flex-direction: column; font-family: sans-serif;">
+            <div class="embed-frame airbnb-embed-frame">
                 <a href="https://www.airbnb.co.in/rooms/43722223" target="_blank" rel="nofollow"
                     style="text-decoration: none; color: inherit; display: flex; flex-direction: column; height: 100%;">
 
                     <!-- Image -->
-                    <div style="flex: 1; overflow: hidden;">
-                        <img src="img/2.svg" alt="Jubilee Ranch Guest House and Spa"
-                            style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                    <div class="media">
+                        <img src="img/2.svg" alt="Jubilee Ranch Guest House and Spa">
                     </div>
 
                     <!-- Text Section -->
-                    <div
-                        style="padding: 12px; font-size: 14px; line-height: 1.4; display: flex; align-items: center; gap: 8px;">
-                        <img src="img/airbnblogo.webp" alt="Logo" style="height:24px;width:auto;vertical-align:middle;">
+                    <div class="meta">
+                        <img class="logo" src="img/airbnblogo.webp" alt="Airbnb logo">
                         <div>
                             <div style="color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                 Home in Comfort
@@ -667,28 +624,22 @@
                         </div>
                     </div>
 
-
                 </a>
             </div>
-        </div>
-        <!-- Vrbo Embed (Custom Styled to Match Airbnb) -->
-        <div class="listing-links-container">
-            <span class="red-overlay"></span>
-            <div class="vrbo-embed-frame"
-                style="width: 450px; height: 450px; margin: 32px auto; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); background: #fff; display: flex; flex-direction: column; font-family: sans-serif;">
+
+            <!-- Vrbo Embed -->
+            <div class="embed-frame vrbo-embed-frame">
                 <a href="https://www.vrbo.com/1958483" target="_blank" rel="nofollow"
                     style="text-decoration: none; color: inherit; display: flex; flex-direction: column; height: 100%;">
 
                     <!-- Image -->
-                    <div style="flex: 1; overflow: hidden;">
-                        <img src="img/1.svg" alt="Vrbo Home in Comfort"
-                            style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                    <div class="media">
+                        <img src="img/1.svg" alt="Vrbo Home in Comfort">
                     </div>
 
                     <!-- Text Section -->
-                    <div
-                        style="padding: 12px; font-size: 14px; line-height: 1.4; display: flex; align-items: center; gap: 8px;">
-                        <img src="img/verbologo.svg" alt="Logo" style="height:24px;width:auto;vertical-align:middle;">
+                    <div class="meta">
+                        <img class="logo" src="img/verbologo.svg" alt="Vrbo logo">
                         <div>
                             <div style="color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                 Guest House in the heart of Texas Wine Country
@@ -700,13 +651,11 @@
                         </div>
                     </div>
 
-
                 </a>
             </div>
 
-
+        </div>
     </section>
-
 
 
 
@@ -723,6 +672,7 @@
             <img src="img/gallery/1 (8).webp" alt="Kitchen Full" />
         </div>
     </section>
+
     <!-- Placeholder Text Section -->
     <section class="placeholder-section"
         style="width:100%;background:#f8f8f8;padding:48px 0;display:flex;justify-content:center;">
@@ -740,146 +690,171 @@
     <!-- Testimonials Section -->
 
 
-<section class="testimonial-section" id="testimonial-section">
-    <h4>Testimonials</h4>
-    <h2>What our guests say<br>about Jubilee Ranch</h2>
+    <section class="testimonial-section" id="testimonial-section">
+        <h4>Testimonials</h4>
+        <h2>What Our Guests Say<br>About Jubilee Ranch</h2>
 
-    <div class="slider-container">
-        <div class="testimonial-wrapper">
+        <div class="slider-container">
+            <div class="testimonial-wrapper">
 
-            <!-- Lindsey -->
-            <div class="testimonial-card">
-                <div class="stars">★★★★★</div>
-                <p>We had a fantastic time here, we will definitely come back. It was private and remote but not too far away from things to do. It was peaceful and felt like we were staying at a resort. Gail was an amazing host, very friendly and we loved every moment staying at her property. I cannot recommend enough!</p>
-                <div class="client-info">
-                    <img src="img/test/1.webp" alt="Lindsey">
-                    <div>
-                        <h3>Lindsey</h3>
-                        <span>Stayed May 2025</span>
+                <!-- Lindsey -->
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>We had a fantastic time here, we will definitely come back. It was private and remote but not too
+                        far away from things to do. It was peaceful and felt like we were staying at a resort. Gail was
+                        an amazing host, very friendly and we loved every moment staying at her property. I cannot
+                        recommend enough!</p>
+                    <div class="client-info">
+                        <img src="img/test/1.webp" alt="Lindsey">
+                        <div>
+                            <h3>Lindsey</h3>
+                            <span>Stayed May 2025</span>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Sheri -->
-            <div class="testimonial-card">
-                <div class="stars">★★★★★</div>
-                <p>From the moment we arrived, we felt completely at home. Gail, the host, is warm, genuine, and truly authentic. The property is absolutely stunning with every detail chosen with care. The courtyard and pool were the cherry on top — private, peaceful, and incredibly relaxing. An unforgettable stay, can’t wait to come back!</p>
-                <div class="client-info">
-                    <img src="img/test/2.webp" alt="Sheri">
-                    <div>
-                        <h3>Sheri</h3>
-                        <span>Valley Mills, TX — June 2025</span>
+                <!-- Sheri -->
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>From the moment we arrived, we felt completely at home. Gail, the host, is warm, genuine, and
+                        truly authentic. The property is absolutely stunning with every detail chosen with care. The
+                        courtyard and pool were the cherry on top - private, peaceful, and incredibly relaxing. An
+                        unforgettable stay, canâ€™t wait to come back!</p>
+                    <div class="client-info">
+                        <img src="img/test/2.webp" alt="Sheri">
+                        <div>
+                            <h3>Sheri</h3>
+                            <span>Valley Mills, TX - June 2025</span>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Alex -->
-            <div class="testimonial-card">
-                <div class="stars">★★★★★</div>
-                <p>This was my second stay at Jubilee Ranch and I loved it just as much as my first! Such a peaceful, relaxing place with a wonderful host. Gail is kind, easy to communicate with, and always has great local recommendations. A trip I always look forward to, can’t wait to go back!</p>
-                <div class="client-info">
-                    <img src="img/test/3.jpg" alt="Alex">
-                    <div>
-                        <h3>Alex</h3>
-                        <span>Seymour, TX — June 2025</span>
+                <!-- Alex -->
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>This was my second stay at Jubilee Ranch and I loved it just as much as my first! Such a
+                        peaceful, relaxing place with a wonderful host. Gail is kind, easy to communicate with, and
+                        always has great local recommendations. A trip I always look forward to, canâ€™t wait to go back!
+                    </p>
+                    <div class="client-info">
+                        <img src="img/test/3.jpg" alt="Alex">
+                        <div>
+                            <h3>Alex</h3>
+                            <span>Seymour, TX - June 2025</span>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Aaron -->
-            <div class="testimonial-card">
-                <div class="stars">★★★★★</div>
-                <p>We stayed at Gail’s beautiful guesthouse in the Hill Country and it was truly peaceful. The guesthouse is charming, clean, and thoughtfully outfitted. A small mix-up at check-in was quickly resolved — Gail went above and beyond. The views are stunning, the property serene. Highly recommend for anyone seeking a quiet, scenic retreat.</p>
-                <div class="client-info">
-                    <img src="img/test/1.webp" alt="Aaron">
-                    <div>
-                        <h3>Aaron</h3>
-                        <span>13 years on Airbnb — May 2025</span>
+                <!-- Aaron -->
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>We stayed at Gailâ€™s beautiful guesthouse in the Hill Country and it was truly peaceful. The
+                        guesthouse is charming, clean, and thoughtfully outfitted. A small mix-up at check-in was
+                        quickly resolved - Gail went above and beyond. The views are stunning, the property serene.
+                        Highly recommend for anyone seeking a quiet, scenic retreat.</p>
+                    <div class="client-info">
+                        <img src="img/test/1.webp" alt="Aaron">
+                        <div>
+                            <h3>Aaron</h3>
+                            <span>13 years on Airbnb - May 2025</span>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Jonathan -->
-            <div class="testimonial-card">
-                <div class="stars">★★★★★</div>
-                <p>This property is nicer than any Four Seasons I have stayed at — hard to believe but true. Gail was so gracious, the refrigerator was stocked with everything we needed, way beyond expectations. Super clean, beautifully decorated, cozy and comfortable. By far the best Airbnb I have ever stayed in!</p>
-                <div class="client-info">
-                    <img src="img/test/2.webp" alt="Jonathan">
-                    <div>
-                        <h3>Jonathan & Heather</h3>
-                        <span>East Greenwich, RI — March 2025</span>
+                <!-- Jonathan -->
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>This property is nicer than any Four Seasons I have stayed at - hard to believe but true. Gail
+                        was so gracious, the refrigerator was stocked with everything we needed, way beyond
+                        expectations. Super clean, beautifully decorated, cozy and comfortable. By far the best Airbnb I
+                        have ever stayed in!</p>
+                    <div class="client-info">
+                        <img src="img/test/2.webp" alt="Jonathan">
+                        <div>
+                            <h3>Jonathan & Heather</h3>
+                            <span>East Greenwich, RI - March 2025</span>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Alex (2nd Review) -->
-            <div class="testimonial-card">
-                <div class="stars">★★★★★</div>
-                <p>Jubilee Ranch was every bit as gorgeous as it shows in the listing! Immaculate guest house with thoughtful details, relaxing outdoor space, and serene surroundings. Gail was so kind and helpful, providing excellent local recommendations. Such a unique stay — we can’t wait to visit again!</p>
-                <div class="client-info">
-                    <img src="img/test/3.jpg" alt="Alex">
-                    <div>
-                        <h3>Alex</h3>
-                        <span>Seymour, TX — July 2024</span>
+                <!-- Alex (2nd Review) -->
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>Jubilee Ranch was every bit as gorgeous as it shows in the listing! Immaculate guest house with
+                        thoughtful details, relaxing outdoor space, and serene surroundings. Gail was so kind and
+                        helpful, providing excellent local recommendations. Such a unique stay - we canâ€™t wait to visit
+                        again!</p>
+                    <div class="client-info">
+                        <img src="img/test/3.jpg" alt="Alex">
+                        <div>
+                            <h3>Alex</h3>
+                            <span>Seymour, TX - July 2024</span>
+                        </div>
                     </div>
                 </div>
+
             </div>
-
-        </div>
-    </div>
-</section>
-```
-
-                
-
-
-        </div>
-        </div>
-
-        <div class="slider-buttons">
-            <button id="prev">&#8592;</button>
-            <button id="next">&#8594;</button>
         </div>
     </section>
 
+
     <script>
-        const wrapper = document.querySelector('.testimonial-wrapper');
-        const slides = document.querySelectorAll('.testimonial-card');
-        const prevBtn = document.getElementById('prev');
-        const nextBtn = document.getElementById('next');
-        let index = 0;
+        // Mobile menu toggle: toggles a sliding full-screen overlay. Works reliably across sizes.
+        document.addEventListener('DOMContentLoaded', function () {
+            var menuIcon = document.getElementById('mobileMenuIcon');
+            var navbarCenter = document.getElementById('navbarCenter');
 
-        function getVisibleCount() {
-            return window.innerWidth >= 900 ? 3 : 1;
-        }
+            menuIcon.addEventListener('click', function () {
+                navbarCenter.classList.toggle('open');
+            });
 
-        function showSlide(i) {
-            const visible = getVisibleCount();
-            const maxIndex = slides.length - visible;
-            // Loop logic: wrap around both directions
-            if (i < 0) index = maxIndex;
-            else if (i > maxIndex) index = 0;
-            else index = i;
-            wrapper.style.transform = `translateX(-${index * (100/visible)}%)`;
-        }
+            // Close menu on link click (mobile)
+            Array.from(navbarCenter.querySelectorAll('a')).forEach(function (link) {
+                link.addEventListener('click', function () {
+                    if (window.innerWidth <= 900) {
+                        navbarCenter.classList.remove('open');
+                    }
+                });
+            });
 
-        prevBtn.addEventListener('click', () => showSlide(index - 1));
-        nextBtn.addEventListener('click', () => showSlide(index + 1));
-
-        window.addEventListener('resize', () => {
-            const visible = getVisibleCount();
-            const maxIndex = slides.length - visible;
-            if (index > maxIndex) index = 0;
-            showSlide(index);
+            // close overlay when resizing from mobile to desktop
+            window.addEventListener('resize', function () {
+                if (window.innerWidth > 900 && navbarCenter.classList.contains('open')) {
+                    navbarCenter.classList.remove('open');
+                }
+            });
         });
 
-        // Auto slide every 5s
-        setInterval(() => {
-            showSlide(index + 1);
-        }, 5000);
+        // Simple testimonial slider (keeps behaviour as before)
+        (function () {
+            const wrapper = document.querySelector('.testimonial-wrapper');
+            const slides = document.querySelectorAll('.testimonial-card');
+            let index = 0;
 
-        // Initial render
-        showSlide(0);
+            function getVisibleCount() {
+                return window.innerWidth >= 900 ? 3 : 1;
+            }
+
+            function showSlide(i) {
+                const visible = getVisibleCount();
+                const slideCount = slides.length;
+
+                index = (i + slideCount) % slideCount;
+
+                if (visible === 1) {
+                    wrapper.style.transform = `translateX(-${index * 100}%)`;
+                } else {
+                    // make sure last slides still fill viewport, no blanks
+                    let maxIndex = slideCount - visible;
+                    if (index > maxIndex) index = 0;
+                    wrapper.style.transform = `translateX(-${index * (100 / visible)}%)`;
+                }
+            }
+
+            window.addEventListener('resize', () => showSlide(index));
+            setInterval(() => showSlide(index + 1), 4000);
+            showSlide(0);
+        })();
     </script>
 
     <!-- Google Map Section -->
@@ -890,37 +865,41 @@
             loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </section>
 
-    <footer style="width:100%;background:#111111;color:#fff;padding:48px 0 0 0;">
-        <div
-            style="max-width:1100px;margin:auto;padding:0 24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;">
-            <div style="display:flex;align-items:center;gap:16px;">
-                <img src="img/logo.jpg" alt="BNB Logo" style="height:80px;width:auto;">
-                <nav>
-                    <ul style="list-style:none;display:flex;gap:24px;margin:0;padding:0;">
-                        <li><a href="#testimonial-section" style="color:#fff;text-decoration:none;">Testimonials</a>
-                        </li>
-                        <li><a href="#gallery-section" style="color:#fff;text-decoration:none;">Gallery</a></li>
-                        <li><a href="#" style="color:#fff;text-decoration:none;">Blog</a></li>
-                        <li><a href="#" style="color:#fff;text-decoration:none;">Book Property</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div style="display:flex;align-items:center;gap:24px;">
-                <a href="https://www.youtube.com/@JubileeRanchand" target="_blank"
-                    style="color:#fff;text-decoration:none;font-size:1.2em;display:flex;align-items:center;gap:6px;">
-                    <img src="img/ylogo.png" alt="Logo" style="height:20px;width:auto;vertical-align:middle;"> YouTube
-                </a>
-                <a href="https://www.instagram.com/jubileeranchguesthouse/?hl=en" target="_blank"
-                    style="color:#fff;text-decoration:none;font-size:1.2em;display:flex;align-items:center;gap:6px;">
-                    <img src="img/ilogo.png" alt="Logo" style="height:20px;width:auto;vertical-align:middle;"> Instagram
-                </a>
-            </div>
+    <!-- main-footer -->
+   <footer style="width:100%;background:#2a2929;color:#fff;padding:10px 0 0 0;">
+    <div class="footer-main">
+        <div class="footer-left">
+            <img src="img/logo.jpg" alt="BNB Logo" style="height:80px;width:auto;">
+            <p>Located in the heart of the Hill Country.
+                Only 2 miles from the charming town of Comfort.<br>
+            </p>
+            <nav>
+                <ul>
+                    <li><h3>Links</h3></li>
+                    <li><a href="#testimonial-section">Testimonials</a></li>
+                    <li><a href="#gallery-section">Gallery</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Book Property</a></li>
+                </ul>
+            </nav>
         </div>
-        <div style="width:100%;background:#000;color:#fff;text-align:center;padding:16px 0;margin-top:32px;">
-            &copy; 2025 <a href="https://jubileeranchguesthouse.com"
-                style="color:#ffd700;text-decoration:underline;">Jubilee Ranch Guest House</a>. All rights reserved. |
-            Website developed & hosted by<a href="https://schrader.co" target="blank"> Schrader Web Solutions</a>
+        <div class="footer-right">
+            <a href="https://www.youtube.com/@JubileeRanchand" target="_blank">
+                <img src="img/ylogo.png" alt="Logo"> YouTube
+            </a>
+            <a href="https://www.instagram.com/jubileeranchguesthouse/?hl=en" target="_blank">
+                <img src="img/ilogo.png" alt="Logo"> Instagram
+            </a>
         </div>
-    </footer>
+    </div>
+
+    <div class="footer-bottom">
+        &copy; 2025 <a href="https://jubileeranchguesthouse.com">Jubilee Ranch Guest House</a>. 
+        All rights reserved. | Website developed & hosted by 
+        <a href="https://schrader.co" target="blank">Schrader Web Solutions</a>
+    </div>
+</footer>
+
 </body>
+
 </html>
